@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title' ,'Create New Student')
+@section('title' ,'Create New Specialisms')
 
 @section('content')
     <br>
@@ -9,29 +9,36 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Create New Student</h3>
+                <h3 class="panel-title">Create New Specialism</h3>
             </div>
 
             <div class="panel-body">
 
-                <form action="{{ route('students.store') }}" method="POST" class="form-horizontal">
+                <form action="{{ route('specialisms.store') }}" method="POST" class="form-horizontal">
 
 
                     <!-- CSRF Token Field -->
 
                 {{ csrf_field() }}
 
-                <!-- Field student name-->
+                <!-- Field  name-->
 
                     <div class="form-group">
-                        <label>Student name</label>
-                        <input type="text" name="name" class="form-control" placeholder="write your student name">
+                        <label>Specialisms name</label>
+                        <input type="text" name="name" class="form-control" placeholder="write specialisms name">
                     </div>
 
                     <!-- Field student mobile-->
 
                     <div class="form-group">
-                        <label>Student mobile</label>
+                        <label>Slug</label>
+                        <input type="text" name="mobile" class="form-control" value="asdfgh" >
+                    </div>
+
+                    <!-- Field image-->
+
+                    <div class="form-group">
+                        <label>image</label>
                         <input type="text" name="mobile" class="form-control" >
                     </div>
 

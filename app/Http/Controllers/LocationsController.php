@@ -3,47 +3,49 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Student;
+use App\Models\Location;
 
-class StudentController extends Controller
+class LocationsController extends Controller
 {
     /**
-     * Display a listing of the students.
+     * Display a listing of the locations.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $students = Student::all();
-        return view('students.index', compact('students'));
+        $locations = Location::all();
+        return view('locations.index', compact('locations'));
     }
 
     /**
-     * Show the form for creating a new student.
+     * Show the form for creating a new location.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-       return view('students.create');
+        return view('locations.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created location in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        location::create([
+            'name' => $request->name ,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude
 
-       Student::create([
-           'name' => $request->name ,
-           'mobile' => $request->mobile
-       ]);
-       return redirect()->route('students.index');
 
-     }
+        ]);
+        return redirect()->route('locations.index');
+    }
+
     /**
      * Display the specified resource.
      *
@@ -54,10 +56,11 @@ class StudentController extends Controller
     {
         //Find the user or fail
 
-        $student = Student::findOrFail($id);
+        $location = Location::findOrFail($id);
 
-        return view('students.show', compact('student'));
+        return view('locations.show', compact('location'));
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -66,10 +69,10 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //Student Find or fail
+        //Country Find or fail
 
-        $student = Student::findOrFail($id);
-        return view('students.edit', compact('student'));
+        $location = Location::findOrFail($id);
+        return view('locations.edit', compact('location'));
     }
 
     /**
@@ -81,15 +84,16 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $student = Student::findOrFail($id);
-        $student->update([
+        $location = Location::findOrFail($id);
+        $location->update([
             'name' => $request->name,
-             'mobile' => $request->mobile
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude
+
         ]);
 
         //return redirect()->back();
-        return redirect()->route('students.index');
-
+        return redirect()->route('locations.index');
     }
 
     /**
@@ -100,10 +104,10 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //Student Find Or Fail
-        $student = Student::findOrFail($id);
-        $student->delete();
+        //Location Find Or Fail
+        $location = Location::findOrFail($id);
+        $location->delete();
 
-        return redirect()->route('students.index');
+        return redirect()->route('locations.index');
     }
 }

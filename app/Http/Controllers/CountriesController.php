@@ -3,29 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Student;
+use App\Models\Country;
 
-class StudentController extends Controller
+class CountriesController extends Controller
 {
     /**
-     * Display a listing of the students.
+     * Display a listing of the countries.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $students = Student::all();
-        return view('students.index', compact('students'));
+        $countries = Country::all();
+        return view('countries.index', compact('countries'));
     }
 
     /**
-     * Show the form for creating a new student.
+     * Show the form for creating a new country .
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-       return view('students.create');
+        return view('countries.create');
     }
 
     /**
@@ -37,13 +37,17 @@ class StudentController extends Controller
     public function store(Request $request)
     {
 
-       Student::create([
-           'name' => $request->name ,
-           'mobile' => $request->mobile
-       ]);
-       return redirect()->route('students.index');
+        country::create([
+            'name' => $request->name ,
+            'code' => $request->code,
+            'currency_code' => $request->currency_code,
+            'currency_symbol' => $request->currency_symbol
 
-     }
+
+       ]);
+        return redirect()->route('countries.index');
+    }
+
     /**
      * Display the specified resource.
      *
@@ -54,10 +58,11 @@ class StudentController extends Controller
     {
         //Find the user or fail
 
-        $student = Student::findOrFail($id);
+        $country = Country::findOrFail($id);
 
-        return view('students.show', compact('student'));
+        return view('countries.show', compact('country'));
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -66,10 +71,10 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //Student Find or fail
+        //Country Find or fail
 
-        $student = Student::findOrFail($id);
-        return view('students.edit', compact('student'));
+        $country = Country::findOrFail($id);
+        return view('countries.edit', compact('country'));
     }
 
     /**
@@ -81,14 +86,16 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $student = Student::findOrFail($id);
-        $student->update([
+        $country = Country::findOrFail($id);
+        $country->update([
             'name' => $request->name,
-             'mobile' => $request->mobile
+            'code' => $request->code,
+            'currency_code' => $request->currency_code,
+            'currency_symbol' => $request->currency_symbol,
         ]);
 
         //return redirect()->back();
-        return redirect()->route('students.index');
+        return redirect()->route('countries.index');
 
     }
 
@@ -100,10 +107,10 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //Student Find Or Fail
-        $student = Student::findOrFail($id);
-        $student->delete();
+        //Country Find Or Fail
+        $country = Country::findOrFail($id);
+        $country->delete();
 
-        return redirect()->route('students.index');
+        return redirect()->route('countries.index');
     }
 }

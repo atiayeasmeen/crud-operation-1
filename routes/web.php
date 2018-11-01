@@ -16,3 +16,25 @@ Route::get('/', function () {
 });
 //Route: Students
 Route::resource('students','StudentController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+//Route: Countries
+Route::resource('countries','CountriesController');
+
+//Route: Locations
+Route::resource('locations','LocationsController');
+
+//Route: Categories
+Route::resource('categories','CategoriesController');
+
+
+//Route:
+Route::resource('specialisms','SpecialismsController');
+
+//Route::resource('countries','Job_typesController');
+//Route::resource('countries','CompaniesController');
+//Route::resource('countries','CandidatesController');
+//Route::resource('countries','PackagesController');

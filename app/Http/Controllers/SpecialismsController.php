@@ -3,29 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Student;
+use App\Models\Specialism;
 
-class StudentController extends Controller
+class SpecialismsController extends Controller
 {
     /**
-     * Display a listing of the students.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $students = Student::all();
-        return view('students.index', compact('students'));
+        $specialisms = Specialism::all();
+        return view('specialisms.index', compact('specialisms'));
     }
 
     /**
-     * Show the form for creating a new student.
+     * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-       return view('students.create');
+        return view('specialisms.create');
     }
 
     /**
@@ -36,14 +36,17 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        specialism::create([
+            'name' => $request->name ,
+            'Slug' => $request->Slug,
+            'image' => $request->image
 
-       Student::create([
-           'name' => $request->name ,
-           'mobile' => $request->mobile
-       ]);
-       return redirect()->route('students.index');
 
-     }
+
+        ]);
+        return redirect()->route('specialisms.index');
+    }
+
     /**
      * Display the specified resource.
      *
@@ -54,10 +57,11 @@ class StudentController extends Controller
     {
         //Find the user or fail
 
-        $student = Student::findOrFail($id);
+        $specialism = Specialism::findOrFail($id);
 
-        return view('students.show', compact('student'));
+        return view('specialisms.show', compact('specialism'));
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -66,10 +70,10 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //Student Find or fail
+        //Country Find or fail
 
-        $student = Student::findOrFail($id);
-        return view('students.edit', compact('student'));
+        $specialism= Specialism::findOrFail($id);
+        return view('specialisms.edit', compact('specialism'));
     }
 
     /**
@@ -81,14 +85,15 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $student = Student::findOrFail($id);
-        $student->update([
+        $specialism = Specialism::findOrFail($id);
+        $specialism->update([
             'name' => $request->name,
-             'mobile' => $request->mobile
-        ]);
+            'Slug' => $request->Slug,
+            'image' => $request->image
 
+        ]);
         //return redirect()->back();
-        return redirect()->route('students.index');
+        return redirect()->route('specialisms.index');
 
     }
 
@@ -100,10 +105,10 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //Student Find Or Fail
-        $student = Student::findOrFail($id);
-        $student->delete();
+        //Location Find Or Fail
+        $specialism = Specialism::findOrFail($id);
+        $specialism->delete();
 
-        return redirect()->route('students.index');
+        return redirect()->route('specialisms.index');
     }
 }

@@ -3,29 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Student;
+use App\Models\Category;
 
-class StudentController extends Controller
+class CategoriesController extends Controller
 {
     /**
-     * Display a listing of the students.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $students = Student::all();
-        return view('students.index', compact('students'));
+        $categories = Category::all();
+        return view('categories.index', compact('categories'));
     }
 
     /**
-     * Show the form for creating a new student.
+     * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-       return view('students.create');
+        return view('categories.create');
     }
 
     /**
@@ -36,14 +36,16 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        category::create([
+            'name' => $request->name ,
+            'Slug' => $request->Slug ,
+            'image' => $request->image
 
-       Student::create([
-           'name' => $request->name ,
-           'mobile' => $request->mobile
-       ]);
-       return redirect()->route('students.index');
 
-     }
+        ]);
+        return redirect()->route('categories.index');
+    }
+
     /**
      * Display the specified resource.
      *
@@ -54,10 +56,11 @@ class StudentController extends Controller
     {
         //Find the user or fail
 
-        $student = Student::findOrFail($id);
+        $category = Category::findOrFail($id);
 
-        return view('students.show', compact('student'));
+        return view('categories.show', compact('category'));
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -66,10 +69,10 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //Student Find or fail
+        //Country Find or fail
 
-        $student = Student::findOrFail($id);
-        return view('students.edit', compact('student'));
+        $category = Category::findOrFail($id);
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -81,15 +84,16 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $student = Student::findOrFail($id);
-        $student->update([
+        $category = Category::findOrFail($id);
+        $category->update([
             'name' => $request->name,
-             'mobile' => $request->mobile
+            'Slug' => $request->Slug,
+            'image' => $request->image
+
         ]);
 
         //return redirect()->back();
-        return redirect()->route('students.index');
-
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -100,10 +104,11 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //Student Find Or Fail
-        $student = Student::findOrFail($id);
-        $student->delete();
+        //Country Find Or Fail
+        $category = Category::findOrFail($id);
+        $category->delete();
 
-        return redirect()->route('students.index');
+        return redirect()->route('categories.index');
+
     }
 }
